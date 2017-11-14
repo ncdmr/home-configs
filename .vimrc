@@ -50,7 +50,8 @@ set tw=240   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
 "set colorcolumn=80
-highlight ColorColumn ctermbg=233
+highlight CursorColumn ctermfg=black ctermbg=Yellow cterm=bold guifg=black guibg=yellow gui=bold
+
 set background=dark
 
 set nocompatible
