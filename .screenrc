@@ -1,0 +1,17 @@
+# Look and feel
+startup_message off
+caption always "%{= bb}%{+b w}Screen: %n | %h %=%t %c"
+hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+termcapinfo xterm* ti@:te@
+#
+# # Our warning of activity
+ activity "Activity in %t(%n)"
+
+# # Left Right meta key mods
+# #ALT-,. and ALT-<>
+bindkey "^[<" eval number !echo $WINDOW-1|bc
+bindkey "^[>" eval number !echo $WINDOW+1|bc
+bindkey "^[," prev
+bindkey "^[." next
+defshell -zsh  # change to whatever default shell
+defscrollback 100000
