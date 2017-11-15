@@ -50,6 +50,8 @@ if [[ -d $ZSH ]]; then
     fi
 else 
     echo "WARNING: $ZSH is not available.  Continuing with native zsh config."
+    autoload -U colors && colors
+    PS1="%{$fg[green]%}%n%{$reset_color%}@%{$fg[white]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
 fi
 # vi syntaxis. Of course.
 set -o vi
