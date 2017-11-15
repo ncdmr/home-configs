@@ -49,7 +49,7 @@ if [[ -d $ZSH ]]; then
     %{$fg[blue]%}->%{$fg_bold[blue]%} %#%{$reset_color%} '
     fi
 else 
-    echo 'Oh-My-Zsh path at $ZSH is not available.  Continuing with native zsh config.'
+    echo "WARNING: $ZSH is not available.  Continuing with native zsh config."
 fi
 # vi syntaxis. Of course.
 set -o vi
