@@ -1,9 +1,11 @@
 # Look and feel
 startup_message off
-caption always "%{= bb}%{+b w}Screen: %n | %h %=%t %c"
-hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+
+# no need for a caption
+# caption always "%{= bb}%{+b w}Screen: %n | %h %=%t %c"
+
 termcapinfo xterm* ti@:te@
-#
+
 # # Our warning of activity
  activity "Activity in %t(%n)"
 
@@ -15,3 +17,34 @@ bindkey "^[," prev
 bindkey "^[." next
 defshell -zsh  # change to whatever default shell
 defscrollback 100000
+
+# predefined terms
+# screen -t ses-osd1 0 ssh ses-osd1
+# screen -t ses-osd2 1 ssh ses-osd2
+# screen -t ses-osd3 2 ssh ses-osd3
+# screen -t ansible 3
+hardstatus alwayslastline '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+
+# some pointers for hardstatus
+# %{= wK} : set colors to bright white (W) on bright black (K) and keep current text styles (=)
+# %H      : hostname
+# [       : opening bracket character
+# %`      : print output of 'backtick' command (defined elsewhere in .screenrc)
+# ]       : closing bracket character
+# %{= wW} : set colors to white (w) on bright black (K) and keep current text styles (=)
+# |       : bar character
+# ${-}    : restore colors to previous colors / undo last color change
+# %-Lw    : list windows before current window (L [optional] = "include flags")
+# %{= bW} : set colors to bright white (W) on blue (b) and keep current text styles (=)
+# %f      : window flags
+# %t      : window title
+# %{-}    : restore colors to previous colors / undo last color change
+# %+Lw    : list windows after current window (L [optional] = "include flags")
+# %=      : expand to fill all space (used here to make remaining content flush right)
+# %C      : current time (12-hr; 24-hr is %c)
+# %a      : am/pm (lowercase; uppercase is %A)
+# %Y      : current year
+# -       : hyphen character
+# %m      : current month (0-padded; %M for "Jan" etc.)
+# -       : hyphen character
+# %d      : current date (0-padded)
