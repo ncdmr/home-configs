@@ -49,7 +49,7 @@ set number  " show line numbers
 set tw=240   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
-set colorcolumn=80
+set colorcolumn=120
 set background=dark
 set nocompatible
 
