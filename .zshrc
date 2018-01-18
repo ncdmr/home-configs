@@ -88,7 +88,7 @@ alias subs='subliminal download -l en *'
 
 
 # 3par
-alias tq = tpquery
+alias tq="tpquery"
 # SAN
 alias basesanquery="sanquery -t 10.111.76.16,10.111.76.15,10.111.12.60,10.111.12.92,10.115.160.240,10.115.160.243,10.115.160.246,10.115.160.247,10.115.0.246,10.115.0.247"
-alias sq=sanquery
+alias sq="sanquery"
