@@ -1,32 +1,80 @@
-" Nic De Muyer VIMRC
-
+if has("win32")
+    set rtp+=H:\vimfiles\bundle\Vundle.vim
+    set rtp+=H:\vimfiles\colors\
+  "Windows options here
+else
+  if has("unix")
+    set rtp+=~/.vim/bundle/Vundle.vim
+    set rtp+=~/.vim/colors/
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+      "Mac options here
+    endif
+  endif
+endif
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
+" set the runtime path to include Vundle and initialize
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+"
+" PYTHON JEDI AUTO COMPLETION
+Plugin 'jedi-vim'
+"Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = "<C-Space>"
 let mapleader = ","
 " easier moving between tabs
 map <Leader>n <esc>:tabprevious<CR>
 map <Leader>m <esc>:tabnext<CR>
-
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
-
 " Show whitespace
 " " MUST be inserted BEFORE the colorscheme command
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
-
 " easier formatting of paragraphs
 vmap Q gq
 nmap Q gqap
-
-" Useful settings
+"
+"
+" " Useful settings
 set history=700
 set undolevels=700
-
-
-" Real programmers don't use TABs but spaces
-syntax on
+"
+"
+" " Real programmers don't use TABs but spaces
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -37,22 +85,19 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
 " Disable stupid backup and swap files - they trigger too many events
 " " for file system watchers
 set nobackup
 set nowritebackup
 set noswapfile
-
 " Showing line numbers and length
 set number  " show line numbers
-set tw=240   " width of document (used by gd)
+set tw=160   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
-set colorcolumn=120
-set background=dark
+"set colorcolumn=80
+highlight ColorColumn ctermbg=233
 set nocompatible
-
 " IMAP DEFINITIONS
 imap ,ndag <c-r>=strftime("%Y-%m-%d")<cr><cr>{<cr>}<esc>ka<cr><tab>
 imap ,sdate <c-r>=strftime("%Y-%m-%d")<cr>
@@ -60,61 +105,51 @@ imap ,stijd <c-r>=strftime("%H:%M")<cr>
 " ToDo items
 imap ,todo <c-r>=strftime("%Y-%m-%d")<cr> Task: <cr>{<cr>}<esc>ka<cr><tab>
 imap ,stamp <c-r>=strftime("%d/%m-%H:%M")<cr>
-
 " search stuff
 set incsearch
 set hlsearch " highlight searchstring
 set ignorecase "ignore upper case
 set smartcase 
 set nowrap
-
 " fold
 set foldmethod=indent
-
 " file, write, backup
 set nobackup
 set nowritebackup
 set autoread " notify when file changed outside vim
-
 " no recover alerts or sponsoring
 set shortmess+=IA
-
 "indent
 set autoindent
-
 " crosshair
 set cursorline
 set cursorcolumn
-
+hi cursorline guibg=yellow
+hi cursorcolumn guibg=yellow
 " layout & theme
+syntax on
 set bg=dark
 if has("gui_running")
 	set guioptions=agiLe "comment to have full gui. 
 	set guioptions-=T
-    colo slate
+    colo molokai
 else
-	colo slate
+	colo github
 endif
-
-" handy statusline at the bottom
+	" handy statusline at the bottom
 set laststatus=2
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [POS=%04l,%04v]\ [LEN=%L]\ [%p%%]\ 
-
 set scrolloff=2 " keep 2 lines above scrolloff
 set showmatch " highlight bracketted string
-
 set backspace=indent,eol,start
-
 set textwidth=120 " textwidth
 set formatoptions=croqt
 set ruler
 set number
 set visualbell
-
-
+syntax on
 let perl_fold=1
 let perl_fold_blocks=1
-
 " Folding for notes
 function! Notes_fold()
 	if getline(v:lnum+1)[0] == '{'
@@ -126,27 +161,21 @@ function! Notes_fold()
 	return foldlevel(v:lnum-1)
 endfunction
 au BufNewFile,BufRead * set foldexpr=Notes_fold()
-
 filetype plugin indent on
 filetype plugin on
-
 runtime ftplugin/man.vim
 runtime ftplugin/perl.vim
 runtime ftplugin/pod.vim
-runtime ftplugin/asciidoc.vim
-
 " auto interpreter lines
-au BufEnter *.sh if getline(1) == "" | :call setline(1, "#!/bin/ksh") | endif
-au BufEnter *.py if getline(1) == "" | :call setline(1, "#!/usr/bin/python") | endif 
+au BufEnter *.sh if getline(1) == "" | :call setline(1, "#!/bin/sh") | endif
+au BufEnter *.py if getline(1) == "" | :call setline(1, "#!/usr/bin/env python3") | endif 
 au BufEnter *.pl if getline(1) == "" | :call setline(1, "#!/usr/bin/perl") | endif
-
-
 " theme rotate
 let themeindex=0
 function! RotateColorTheme()
   let y = -1
   while y == -1
-   	let colorstring = "#molokai.vim#google-prettify.vim#pyte.vim#slate.vim#professional.vim#adaryn.vim#desert.vim#ekvoli.vim#darktango.vim"
+   	let colorstring = "#github.vim#molokai.vim#pyte.vim#google.vim"
     let x = match(colorstring,"#",g:themeindex)
     let y = match(colorstring,"#",x+1)
     let g:themeindex = x+1
@@ -157,34 +186,28 @@ function! RotateColorTheme()
       let themestring = strpart(colorstring,x+1,y-x-1)
       echo("Setting Theme to-> ".themestring)
       "return ":so $VIMRUNTIME/colors/".themestring
-      return ":so ~/.vim/colors/".themestring
+      if has("win32")
+        return ":so H:\\vimfiles\\colors\\".themestring
+      else
+        if has("unix")
+          return ":so ~/.vim/colors/".themestring
+        endif
+      endif
     endif
   endwhile
 endfunction
-
 " KEYBINDINGS
-
 " folding
 nnoremap <F5> :set foldmethod=expr foldlevel=0 foldcolumn=0<CR> 
-
  " Key for theme rotate function
 map <F7> :execute RotateColorTheme()<CR>
-
 "remove all blank lines.  
 map <S-F7> :g/^\s*$/d<CR>
-
-"keymap for converting wwns to \d\d: structure
-map <S-F10> lli:llli:llli:llli:llli:llli:llli: 
-
-" stop search at and of file
-set nowrapscan
-
 " Change local directory to directory of current file.
 nnoremap <F8> :lcd %:p:h<CR>
-
 " Reduce a sequence of empty lines into a single line.
 nnoremap <F9> GoZ<Esc>:g/^$/.,/./-j<CR>Gdd
-
+nnoremap <F10> lli:l
 " Toggle menu & toolbars
 map <silent> <C-F2> :if &guioptions =~# 'T' <Bar>
     \set guioptions-=T <Bar>
@@ -193,17 +216,18 @@ map <silent> <C-F2> :if &guioptions =~# 'T' <Bar>
     \set guioptions+=T <Bar>
     \set guioptions+=m <Bar>
 \endif<CR>
- 
 map <S-F2> :DIstart<cr>
 map <S-F3> :DIstop<cr>
 cmap <F3> %<C-R>=strftime("_%Y%m%d_%H%M")<CR>
-
+map <S-F8> :set guifont=consolas:h10<cr>
+map <S-F9> :set guifont=consolas:h12<cr>
+map <S-F10> lli:llli:llli:llli:llli:llli:llli: 
 "easier indenting code blocks
 vnoremap < <gv 
 vnoremap > >gv 
-
 "list hidden characters
 "set list
 "set listchars=tab:▸\ ,eol:¬
 
-highlight CursorColumn ctermfg=yellow ctermbg=58 cterm=bold guifg=white guibg=black gui=bold
+" final font size
+set guifont=consolas:h10
