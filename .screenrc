@@ -1,50 +1,25 @@
-# Look and feel
 startup_message off
 
-# no need for a caption
-# caption always "%{= bb}%{+b w}Screen: %n | %h %=%t %c"
+# if we accidentally hangup, don't be all attached when we come back. 
+autodetach on
 
+# more scrollbacks!
+defscrollback 10000
+
+# disable use of the "alternate" terminal
+# thus allowing scrollbars to function as normal in
+# many terminal emulators! <3 it
 termcapinfo xterm* ti@:te@
 
-# # Our warning of activity
- activity "Activity in %t(%n)"
+# have screen update terminal emulators titlebar
+termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+defhstatus "screen ^E (^Et) | $USER@^EH"
 
-# # Left Right meta key mods
-# #ALT-,. and ALT-<>
-bindkey "^[<" eval number !echo $WINDOW-1|bc
-bindkey "^[>" eval number !echo $WINDOW+1|bc
-bindkey "^[," prev
-bindkey "^[." next
-defshell -zsh  # change to whatever default shell
-defscrollback 100000
+# but dont print i.e. "bell in window 0" status craps
+#hardstatus off
 
-# predefined terms
-# screen -t ses-osd1 0 ssh ses-osd1
-# screen -t ses-osd2 1 ssh ses-osd2
-# screen -t ses-osd3 2 ssh ses-osd3
-# screen -t ansible 3
-hardstatus alwayslastline '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+hardstatus alwayslastline
+hardstatus string '%{= kG}// %{W}%H %{g}//%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}// %{B}%Y-%m-%d %{W}%c %{g} //'
 
-# some pointers for hardstatus
-# %{= wK} : set colors to bright white (W) on bright black (K) and keep current text styles (=)
-# %H      : hostname
-# [       : opening bracket character
-# %`      : print output of 'backtick' command (defined elsewhere in .screenrc)
-# ]       : closing bracket character
-# %{= wW} : set colors to white (w) on bright black (K) and keep current text styles (=)
-# |       : bar character
-# ${-}    : restore colors to previous colors / undo last color change
-# %-Lw    : list windows before current window (L [optional] = "include flags")
-# %{= bW} : set colors to bright white (W) on blue (b) and keep current text styles (=)
-# %f      : window flags
-# %t      : window title
-# %{-}    : restore colors to previous colors / undo last color change
-# %+Lw    : list windows after current window (L [optional] = "include flags")
-# %=      : expand to fill all space (used here to make remaining content flush right)
-# %C      : current time (12-hr; 24-hr is %c)
-# %a      : am/pm (lowercase; uppercase is %A)
-# %Y      : current year
-# -       : hyphen character
-# %m      : current month (0-padded; %M for "Jan" etc.)
-# -       : hyphen character
-# %d      : current date (0-padded)
+defflow off
+defshell /usr/bin/zsh
