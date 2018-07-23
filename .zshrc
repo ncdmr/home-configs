@@ -57,7 +57,7 @@ fi
 set -o vi
 # aliases
 alias ll="ls -lrht"
-export PATH=$PATH:~/bin:/usr/local/bin
+export PATH=$PATH:~/bin:/usr/local/bin:/opt/Navisphere/bin
 #####
 # docker aliases
 #####
