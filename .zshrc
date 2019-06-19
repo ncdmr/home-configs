@@ -1,5 +1,9 @@
 # Path to your oh-my-zsh configuration.
+<<<<<<< HEAD
 ZSH=~/repositories/oh-my-zsh
+=======
+ZSH=~/Repositories/oh-my-zsh
+>>>>>>> df5d6223c0c5c6fe48491c0b377f3d49b1312900
 if [[ -d $ZSH ]]; then
     # Set name of the theme to load.
     # Look in ~/.oh-my-zsh/themes/
@@ -57,7 +61,7 @@ fi
 set -o vi
 # aliases
 alias ll="ls -lrht"
-export PATH=$PATH:~/bin:/usr/local/bin
+export PATH=$PATH:~/bin:/usr/local/bin:/usr/local/go/bin:~/go/bin
 #####
 # docker aliases
 #####
