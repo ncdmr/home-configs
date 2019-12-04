@@ -94,3 +94,4 @@ alias basesanquery="sanquery -t 10.111.76.16,10.111.76.15,10.111.12.60,10.111.12
 alias sq="sanquery"
 alias sanerrport="sanquery -c 'porterrshow' --skip ' 0      0      0      0      0      0      0      0      0      0      0      0      0      0      0      0' -a | egrep -v 'c3timeout|g_eof'"
 alias pip="python3 -m pip"
+stty erase 

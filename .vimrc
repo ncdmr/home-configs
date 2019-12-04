@@ -207,3 +207,4 @@ vnoremap > >gv
 "set listchars=tab:▸\ ,eol:¬
 
 highlight CursorColumn ctermfg=yellow ctermbg=58 cterm=bold guifg=white guibg=black gui=bold
+:set t_kb=^H
