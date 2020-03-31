@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=~/repositories/oh-my-zsh
+ZSH=~/repos/oh-my-zsh
 if [[ -d $ZSH ]]; then
     # Set name of the theme to load.
     # Look in ~/.oh-my-zsh/themes/
@@ -48,7 +48,7 @@ if [[ -d $ZSH ]]; then
     PROMPT=$'%{$fg[white]%}%D{[%y.%m.%d-%R:%S]} %{$fg_bold[green]%}%n%{$fg[white]%}//%{$fg_bold[yellow]%}%m %{$reset_color%}%{$fg[yellow]%}[%~]%{$reset_color%} \
     %{$fg[blue]%}->%{$fg_bold[blue]%} %#%{$reset_color%} '
     fi
-else 
+else
     echo "WARNING: $ZSH is not available.  Continuing with native zsh config."
     autoload -U colors && colors
     PS1="%{$fg[green]%}%n%{$reset_color%}@%{$fg[white]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
